@@ -1,2 +1,2 @@
-# sbuf
-C scrap for a simple string buffer.
+# sbuf 0.0.0.
+
