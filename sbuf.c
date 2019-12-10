@@ -1,6 +1,6 @@
 /**
  *  @file sbuf.c
- *  @version 0.0.1-dev0
+ *  @version 0.1.0-dev0
  *  @date Thu Nov  1 09:02:04 CDT 2018
  *  @copyright %COPYRIGHT%
  *  @brief Methods for creating and parsing a buffer of strings.
@@ -73,7 +73,7 @@ sbuf_free(struct sbuf **pp)
 const char *
 sbuf_version(void)
 {
-   return "0.0.1-dev0";
+   return "0.1.0-dev0";
 }
 
 int
