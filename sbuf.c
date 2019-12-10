@@ -44,8 +44,6 @@ struct sbuf {
    unsigned    bpos;                        /* next buffer position to to write to */
 };
 
-/*** sbuf_new() ***/
-
 struct sbuf *
 sbuf_new(void)
 {
@@ -64,25 +62,19 @@ sbuf_new(void)
    return tp;
 }
 
-/*** sbuf_free() ***/
-
 void
-sbuf_free(struct sbuf *p)
+sbuf_free(struct sbuf **pp)
 {
-   _FREE(p->list);
-   _FREE(p->buffer);
-   _FREE(p);
+   _FREE((*pp)->list);
+   _FREE((*pp)->buffer);
+   _FREE(*pp);
 }
-
-/*** sbuf_version() ***/
 
 const char *
 sbuf_version(void)
 {
    return "0.0.1-dev0";
 }
-
-/*** sbuf_init() ***/
 
 int
 sbuf_init(struct sbuf *p, void *x)
@@ -91,8 +83,6 @@ sbuf_init(struct sbuf *p, void *x)
 
    return 0;
 }
-
-/*** sbuf_putc() ***/
 
 int
 sbuf_putc(struct sbuf *p, int c)
@@ -118,8 +108,6 @@ sbuf_putc(struct sbuf *p, int c)
 
    return c;
 }
-
-/*** sbuf_strings() ***/
 
 char      **
 sbuf_strings(struct sbuf *p)

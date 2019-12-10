@@ -29,7 +29,6 @@
 #endif
 #define _COLOR_RESET      "[0m"
 
-
 static void
 _printf_test_name(char *name, char *info)
 {
@@ -41,19 +40,18 @@ _printf_test_name(char *name, char *info)
       printf("\n");
 }
 
-
 static void
 test_constr(void)
 {
    struct sbuf *z;
 
-   _printf_test_name("test_constr()", NULL);
+   _printf_test_name("test_constr", "sbuf_new");
 
    z = sbuf_new();
    ASSERT("Constructor test", z);
-   sbuf_free(z);
+   sbuf_free(&z);
+   ASSERT_EQUALS(NULL, z);
 }
-
 
 static void
 test_put_1(void)
@@ -61,7 +59,7 @@ test_put_1(void)
    struct sbuf *z;
    char      **list;
 
-   _printf_test_name("test_put_1()", NULL);
+   _printf_test_name("test_put_1", "sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
    sbuf_putc(z, 'Z');
@@ -73,9 +71,9 @@ test_put_1(void)
    ASSERT_STRING_EQUALS("Zeb", list[0]);
    ASSERT_EQUALS(NULL, list[1]);
 
-   sbuf_free(z);
+   sbuf_free(&z);
+   ASSERT_EQUALS(NULL, z);
 }
-
 
 static void
 test_put_2(void)
@@ -83,7 +81,7 @@ test_put_2(void)
    struct sbuf *z;
    char      **list;
 
-   _printf_test_name("test_put_2()", NULL);
+   _printf_test_name("test_put_2", "sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
    sbuf_putc(z, 'S');
@@ -99,9 +97,9 @@ test_put_2(void)
    ASSERT_STRING_EQUALS("Zeb", list[1]);
    ASSERT_EQUALS(NULL, list[2]);
 
-   sbuf_free(z);
+   sbuf_free(&z);
+   ASSERT_EQUALS(NULL, z);
 }
-
 
 static void
 test_strings_init_strings(void)
@@ -113,7 +111,7 @@ test_strings_init_strings(void)
    char       *test_b[] = { "S", "Zeb" };
    unsigned    i;
 
-   _printf_test_name("test_strings_init_strings()", NULL);
+   _printf_test_name("test_strings_init_strings", "sbuf_init, sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
 
@@ -173,7 +171,8 @@ test_strings_init_strings(void)
 
    ASSERT_EQUALS(NULL, list[2]);
 
-   sbuf_free(z);
+   sbuf_free(&z);
+   ASSERT_EQUALS(NULL, z);
 }
 
 
@@ -183,7 +182,7 @@ test_empty(void)
    struct sbuf *z;
    char      **list;
 
-   _printf_test_name("test_empty()", NULL);
+   _printf_test_name("test_empty", "sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
 
@@ -192,29 +191,15 @@ test_empty(void)
 
    ASSERT_STRING_EQUALS("", list[0]);
 
-   sbuf_free(z);
+   sbuf_free(&z);
+   ASSERT_EQUALS(NULL, z);
 }
-
-
-static void
-test_stub(void)
-{
-   struct sbuf *z;
-
-   _printf_test_name("test_stub()", NULL);
-
-   z = sbuf_new();
-   ASSERT("Test stub", z);
-   sbuf_free(z);
-}
-
 
 int
 main(void)
 {
    printf("%s\n", sbuf_version());
 
-   test_stub();
    RUN(test_constr);
    RUN(test_put_1);
    RUN(test_put_2);

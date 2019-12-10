@@ -29,7 +29,7 @@ struct sbuf *sbuf_new(void);
  *  @details FIXME longer description here ...
  */
 
-void        sbuf_free(struct sbuf *p);
+void        sbuf_free(struct sbuf **pp);
 
 /**
  *  @brief Return the version of this package.
