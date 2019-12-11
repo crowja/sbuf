@@ -27,8 +27,7 @@ main(int argc, char *argv[])
       cpp++;
    }
 
-   sbuf_free(sb);
-
+   sbuf_free(&sb);
 
    return 0;
 }

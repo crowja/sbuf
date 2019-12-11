@@ -68,6 +68,7 @@ sbuf_free(struct sbuf **pp)
    _FREE((*pp)->list);
    _FREE((*pp)->buffer);
    _FREE(*pp);
+   *pp = NULL;
 }
 
 const char *

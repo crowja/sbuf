@@ -59,7 +59,7 @@ main(int argc, char *argv[])
    }
 #endif
 
-   sbuf_free(sb);
+   sbuf_free(&sb);
 
 
    return 0;

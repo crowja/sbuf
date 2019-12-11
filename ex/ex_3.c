@@ -38,7 +38,7 @@ main(int argc, char *argv[])
       cpp++;
    }
 
-   /* There will be unfreed memory set up by the sbuf */
+   /* There will be unfreed memory */
 
    return 0;
 }
