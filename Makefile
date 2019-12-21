@@ -52,7 +52,7 @@ vcheck:
 	  echo "--------------------"; \
 	  echo "Running test $$i ..."; \
 	  ( $(CC) -g $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(OTHER_SOURCE) \
-		-o t/a.out $$i.c sbuf.o $(LDFLAGS) ) \
+		-o t/a.out $$i.c sbuf.c $(LDFLAGS) ) \
 	  && ( valgrind $(VALGRIND_FLAGS) t/a.out ); \
 	done 
 
@@ -61,6 +61,7 @@ scheck:
 	do \
 	  echo "--------------------"; \
 	  echo "Running test $$i ..."; \
+	  echo "with $(GCC_SANITIZE_FLAGS)"; \
 	  ( $(CC)    $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(GCC_SANITIZE_FLAGS) $(OTHER_SOURCE) \
 		-o t/a.out $$i.c sbuf.c $(LDFLAGS) ) \
 	  && ( t/a.out ); \
@@ -72,7 +73,7 @@ echeck:
 	  echo "--------------------"; \
 	  echo "Running test $$i ..."; \
 	  ( $(CC)    $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(OTHER_SOURCE) \
-		-o t/a.out $$i.c sbuf.o $(LDFLAGS_EFENCE) ) \
+		-o t/a.out $$i.c sbuf.c $(LDFLAGS_EFENCE) ) \
 	  && ( LD_PRELOAD=libefence.so ./t/a.out ); \
 	done 
 
