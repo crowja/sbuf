@@ -1,7 +1,7 @@
 /**
  *  @file sbuf.h
  *  @version 0.1.0-dev0
- *  @date Thu Nov  1 09:02:04 CDT 2018
+ *  @date Fri Dec 20 21:16:27 CST 2019
  *  @copyright %COPYRIGHT%
  *  @brief FIXME
  *  @details FIXME
@@ -18,29 +18,29 @@
 struct sbuf;
 
 /**
- *  @brief Create and return a new sbuf object.
- *  @details FIXME longer description here ...
+ *  @brief Constructor.
+ *  @details Create and return a new sbuf object.
+ *  @returns New pqueue object.
  */
-
 struct sbuf *sbuf_new(void);
 
 /**
- *  @brief Clean up and free a sbuf structure.
- *  @details FIXME longer description here ...
+ *  @brief Destructor.
+ *  @details Clean up and free an sbuf structure.
+ *  @param[in, out] pp. It is assumed *pp has been created by a call to
+ *  sbuf_new(), and on return *pp is set to NULL.
  */
-
 void        sbuf_free(struct sbuf **pp);
 
 /**
  *  @brief Return the version of this package.
- *  @details FIXME longer description here ...
+ *  @details Version string.
  */
-
 const char *sbuf_version(void);
 
 /**
  *  @brief Initialize a sbuf object.
- *  @details FIXME longer description here ...
+ *  @details Initializes/empties the sbuf.
  *  @param p Pointer to a sbuf object
  *  @param x FIXME
  */
