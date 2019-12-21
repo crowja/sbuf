@@ -39,15 +39,6 @@ void        sbuf_free(struct sbuf **pp);
 const char *sbuf_version(void);
 
 /**
- *  @brief Initialize a sbuf object.
- *  @details Initializes/empties the sbuf.
- *  @param p Pointer to a sbuf object
- *  @param x FIXME
- */
-
-int         sbuf_init(struct sbuf *p, void *x);
-
-/**
  *  @brief Append a character to the sbuf.
  *  @details Append a character to the tail of the sbuf. Strings are 
  *  constructed by explicitly putting a '\0'.
@@ -56,6 +47,14 @@ int         sbuf_init(struct sbuf *p, void *x);
  */
 
 int         sbuf_putc(struct sbuf *p, int c);
+
+/**
+ *  @brief Resets an sbuf object.
+ *  @details Reset/empties the sbuf.
+ *  @param p Pointer to a sbuf object
+ *  @param x FIXME
+ */
+int         sbuf_reset(struct sbuf *p);
 
 /**
  *  @brief Returns a list of strings.

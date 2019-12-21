@@ -102,7 +102,7 @@ test_put_2(void)
 }
 
 static void
-test_strings_init_strings(void)
+test_strings_reset_strings(void)
 {
    struct sbuf *z;
    char      **list;
@@ -111,7 +111,7 @@ test_strings_init_strings(void)
    char       *test_b[] = { "S", "Zeb" };
    unsigned    i;
 
-   _printf_test_name("test_strings_init_strings", "sbuf_init, sbuf_putc, sbuf_strings");
+   _printf_test_name("test_strings_reset_strings", "sbuf_reset, sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
 
@@ -144,7 +144,7 @@ test_strings_init_strings(void)
    ASSERT_STRING_EQUALS("Dog", list[2]);
 #endif
 
-   sbuf_init(z, NULL);
+   sbuf_reset(z);
 
    sbuf_putc(z, 'S');
    sbuf_putc(z, '\0');
@@ -195,6 +195,24 @@ test_empty(void)
    ASSERT_EQUALS(NULL, z);
 }
 
+static void
+test_bare_strings(void)
+{
+   struct sbuf *z;
+   char      **list;
+
+   _printf_test_name("test_bare_strings", "sbuf_strings");
+
+   z = sbuf_new();
+
+   list = sbuf_strings(z);
+
+   ASSERT_STRING_EQUALS("", list[0]);
+
+   sbuf_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
 int
 main(void)
 {
@@ -203,8 +221,9 @@ main(void)
    RUN(test_constr);
    RUN(test_put_1);
    RUN(test_put_2);
-   RUN(test_strings_init_strings);
+   RUN(test_strings_reset_strings);
    RUN(test_empty);
+   RUN(test_bare_strings);
 
    return TEST_REPORT();
 }

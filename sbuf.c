@@ -78,14 +78,6 @@ sbuf_version(void)
 }
 
 int
-sbuf_init(struct sbuf *p, void *x)
-{
-   p->bpos = 0;
-
-   return 0;
-}
-
-int
 sbuf_putc(struct sbuf *p, int c)
 {
    char       *tp;
@@ -108,6 +100,14 @@ sbuf_putc(struct sbuf *p, int c)
    p->bpos += 1;
 
    return c;
+}
+
+int
+sbuf_reset(struct sbuf *p)
+{
+   p->bpos = 0;
+
+   return 0;
 }
 
 char      **
