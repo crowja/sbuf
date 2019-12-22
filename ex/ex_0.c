@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int
-main(int argc, char *argv[])
+main(void)
 {
    char cb[10];
    cb[0] = 'a';

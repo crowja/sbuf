@@ -3,7 +3,7 @@
 #include "sbuf.h"
 
 int
-main(int argc, char *argv[])
+main(void)
 {
    struct sbuf *sb = (struct sbuf *) sbuf_new();
    char      **list;

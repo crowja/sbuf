@@ -39,6 +39,11 @@ main(int argc, char *argv[])
    }
 
    /* There will be unfreed memory */
+#define _COLOR_CODE       0x1B
+#define _COLOR_YELLOW     "[1;33m"
+#define _COLOR_RESET      "[0m"
+   printf("%c%s%s%c%s\n", _COLOR_CODE, _COLOR_YELLOW, "Intentionally not freeing memory",
+          _COLOR_CODE, _COLOR_RESET);
 
    return 0;
 }
