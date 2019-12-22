@@ -1,10 +1,13 @@
 /**
  *  @file sbuf.h
  *  @version 0.2.0-dev0
- *  @date Fri Dec 20 21:16:27 CST 2019
+ *  @date Sat Dec 21 20:16:33 CST 2019
  *  @copyright %COPYRIGHT%
- *  @brief FIXME
- *  @details FIXME
+ *  @brief Methods for creating and parsing a buffer of strings.
+ *  @details Probably mostly useful for lexers building up a buffer of text
+ *  one character at a time. Sbuf_putc() collects characters. Sbuf_strings()
+ *  returns a list of strings embedded in the collection. A goal in this
+ *  implementation has been to minimize mallocs and frees.
  */
 
 #ifndef _SBUF_H_

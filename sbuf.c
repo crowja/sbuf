@@ -1,7 +1,7 @@
 /**
  *  @file sbuf.c
  *  @version 0.2.0-dev0
- *  @date Fri Dec 20 21:16:27 CST 2019
+ *  @date Sat Dec 21 20:16:33 CST 2019
  *  @copyright %COPYRIGHT%
  *  @brief Methods for creating and parsing a buffer of strings.
  *  @details Probably mostly useful for lexers building up a buffer of text
@@ -118,7 +118,8 @@ sbuf_strings(struct sbuf *p)
    unsigned    lpos = 0;
    void      **tp;
 
-   /* FIXME a new sbuf or after an sbuf_init() will set p->bpos = 0  */
+   if (p->bpos == 0)
+      return NULL;
 
    if ((p->buffer)[p->bpos - 1] != '\0') {
       sbuf_putc(p, '\0');

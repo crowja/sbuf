@@ -206,8 +206,7 @@ test_bare_strings(void)
    z = sbuf_new();
 
    list = sbuf_strings(z);
-
-   ASSERT_STRING_EQUALS("", list[0]);
+   ASSERT_EQUALS(NULL, list);
 
    sbuf_free(&z);
    ASSERT_EQUALS(NULL, z);
