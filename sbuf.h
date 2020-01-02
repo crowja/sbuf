@@ -2,7 +2,8 @@
  *  @file sbuf.h
  *  @version 0.3.0-dev0
  *  @date Sat Dec 21 20:16:33 CST 2019
- *  @copyright %COPYRIGHT%
+ *  @copyright 2020 John A. Crow <crowja@gmail.com>
+ *  @license Unlicense <http://unlicense.org/>
  *  @brief Methods for creating and parsing a buffer of strings.
  *  @details Probably mostly useful for lexers building up a buffer of text
  *  one character at a time. Sbuf_putc() collects characters. Sbuf_strings()
