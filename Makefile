@@ -86,8 +86,8 @@ indent: stamp
 	@indent $(INDENT_FLAGS) ex/ex_3.c
 
 stamp:
-	@bash stamper.bash sbuf.c
-	@bash stamper.bash sbuf.h
+	@stamper.bash sbuf.c
+	@stamper.bash sbuf.h
 
 clean:
 	@/bin/rm -f ./*.o ./*~ ./*.BAK ./*.bak ./core.* ./a.out
