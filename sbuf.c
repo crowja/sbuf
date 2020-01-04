@@ -1,7 +1,7 @@
 /**
  *  @file sbuf.c
  *  @version 0.4.0-dev0
- *  @date Sat Dec 21 20:16:33 CST 2019
+ *  @date Sat Jan  4 11:58:33 CST 2020
  *  @copyright 2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
  *  @brief Methods for creating and parsing a buffer of strings.
@@ -81,11 +81,10 @@ sbuf_version(void)
 int
 sbuf_putc(struct sbuf *p, int c)
 {
-   char       *tp;
 
    /* More space for the buffer? */
    if (p->bpos + 2 > p->bsize) {
-      tp = (char *) realloc(p->buffer, sizeof(char) * (p->bsize + _EXTEND_BUFSZ));
+      char       *tp = realloc(p->buffer, sizeof(char) * (p->bsize + _EXTEND_BUFSZ));
       if (_IS_NULL(tp))
          return EOF;
       p->buffer = tp;
@@ -107,7 +106,6 @@ int
 sbuf_reset(struct sbuf *p)
 {
    p->bpos = 0;
-
    return 0;
 }
 
@@ -146,7 +144,6 @@ sbuf_strings(struct sbuf *p)
 
    return (char **) p->list;
 }
-
 
 #undef _EXTEND_BUFSZ
 #undef _EXTEND_LSTSZ

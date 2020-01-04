@@ -1,7 +1,7 @@
 /**
  *  @file sbuf.h
  *  @version 0.4.0-dev0
- *  @date Sat Dec 21 20:16:33 CST 2019
+ *  @date Sat Jan  4 11:58:33 CST 2020
  *  @copyright 2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
  *  @brief Methods for creating and parsing a buffer of strings.
@@ -68,7 +68,5 @@ int         sbuf_reset(struct sbuf *p);
  */
 
 char      **sbuf_strings(struct sbuf *p);
-
-
 
 #endif
