@@ -145,6 +145,42 @@ sbuf_strings(struct sbuf *p)
    return (char **) p->list;
 }
 
+int
+sbuf_strings2(struct sbuf *p, unsigned *np, char ***cpp)
+{
+   unsigned    bpos;
+   unsigned    start = 0;
+   unsigned    lpos = 0;
+   void      **tp;
+
+   if (p->bpos == 0)
+      return NULL;
+
+   if ((p->buffer)[p->bpos - 1] != '\0') {
+      sbuf_putc(p, '\0');
+   }
+
+   for (bpos = 0; bpos < p->bpos; bpos++) {
+
+      if ((p->buffer)[bpos] == '\0') {           /* end of string */
+
+         if (lpos + 2 >= p->lsize) {
+            tp = realloc(p->list, sizeof(char *) * (p->lsize + _EXTEND_LSTSZ));
+            p->list = (char **) tp;
+            p->lsize += _EXTEND_LSTSZ;
+         }
+
+         (p->list)[lpos] = p->buffer + start;    /* need to extend list size? */
+         lpos += 1;
+         start = bpos + 1;
+      }
+   }
+
+   (p->list)[lpos] = (char *) NULL;              /* terminal NULL */
+
+   return (char **) p->list;
+}
+
 #undef _EXTEND_BUFSZ
 #undef _EXTEND_LSTSZ
 #undef _IS_NULL
