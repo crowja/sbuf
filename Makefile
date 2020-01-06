@@ -16,7 +16,7 @@ INDENT_FLAGS = -TFILE -Tsize_t -Tuint8_t -Tuint16_t -Tuint32_t -Tuint64_t
 .PHONY: check check-examples vcheck scheck echeck indent stamp clean
 
 TESTS     = t/test
-EXAMPLES  = ex/ex_1 ex/ex_2 ex/ex_3
+EXAMPLES  = ex/ex_1 ex/ex_2
 
 sbuf.o: sbuf.c sbuf.h
 	$(CC) -c $(CPPFLAGS) $(CFLAGS) -o $@ sbuf.c
@@ -40,10 +40,6 @@ check-examples:
 	echo "Running test ex/ex_2.c ..."; \
 	( $(CC) -g $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(OTHER_SOURCE) \
 		-o ex/a.out ex/ex_2.c sbuf.c $(LDFLAGS) ) \
-	&& ( valgrind $(VALGRIND_FLAGS) ex/a.out < NOTES.md ); \
-	echo "Running test ex/ex_3.c ..."; \
-	( $(CC) -g $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(OTHER_SOURCE) \
-		-o ex/a.out ex/ex_3.c sbuf.c $(LDFLAGS) ) \
 	&& ( valgrind $(VALGRIND_FLAGS) ex/a.out < NOTES.md ); \
 
 vcheck:
@@ -83,7 +79,6 @@ indent: stamp
 	@indent $(INDENT_FLAGS) t/test.c
 	@indent $(INDENT_FLAGS) ex/ex_1.c
 	@indent $(INDENT_FLAGS) ex/ex_2.c
-	@indent $(INDENT_FLAGS) ex/ex_3.c
 
 stamp:
 	@stamper.bash sbuf.c
