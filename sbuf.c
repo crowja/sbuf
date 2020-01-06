@@ -1,7 +1,7 @@
 /**
  *  @file sbuf.c
  *  @version 0.4.1-dev0
- *  @date Sat Jan  4 11:58:33 CST 2020
+ *  @date Sun Jan  5 18:44:30 CST 2020
  *  @copyright 2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
  *  @brief Methods for creating and parsing a buffer of strings.
@@ -81,7 +81,6 @@ sbuf_version(void)
 int
 sbuf_putc(struct sbuf *p, int c)
 {
-
    /* More space for the buffer? */
    if (p->bpos + 2 > p->bsize) {
       char       *tp = realloc(p->buffer, sizeof(char) * (p->bsize + _EXTEND_BUFSZ));
@@ -109,6 +108,7 @@ sbuf_reset(struct sbuf *p)
    return 0;
 }
 
+#if 0
 char      **
 sbuf_strings(struct sbuf *p)
 {
@@ -144,41 +144,43 @@ sbuf_strings(struct sbuf *p)
 
    return (char **) p->list;
 }
+#endif
 
 int
-sbuf_strings2(struct sbuf *p, unsigned *np, char ***cpp)
+sbuf_strings(struct sbuf *p, unsigned *n, char ***cpp)
 {
-   unsigned    bpos;
-   unsigned    start = 0;
-   unsigned    lpos = 0;
-   void      **tp;
+   unsigned    i = 0, j = 0, k = 0;
 
-   if (p->bpos == 0)
-      return NULL;
-
-   if ((p->buffer)[p->bpos - 1] != '\0') {
-      sbuf_putc(p, '\0');
+   if (p->bpos == 0) {
+      *n = 0;
+      *cpp = NULL;
+      return 0;
    }
 
-   for (bpos = 0; bpos < p->bpos; bpos++) {
-
-      if ((p->buffer)[bpos] == '\0') {           /* end of string */
-
-         if (lpos + 2 >= p->lsize) {
-            tp = realloc(p->list, sizeof(char *) * (p->lsize + _EXTEND_LSTSZ));
-            p->list = (char **) tp;
+   while (j < p->bpos) {
+      if ((p->buffer)[j] == '\0') {              /* end of string */
+         if (k + 2 >= p->lsize) {                /* need to extend p->list? */
+            char      **tp =
+             realloc(p->list, sizeof(char *) * (p->lsize + _EXTEND_LSTSZ));
+            /* FIXME assuming success */
+            p->list = tp;
             p->lsize += _EXTEND_LSTSZ;
          }
 
-         (p->list)[lpos] = p->buffer + start;    /* need to extend list size? */
-         lpos += 1;
-         start = bpos + 1;
+         (p->list)[k] = p->buffer + i;
+         j++;
+         k++;
+         i = j;
       }
+      else
+         j++;
    }
 
-   (p->list)[lpos] = (char *) NULL;              /* terminal NULL */
+   (p->list)[k] = (char *) NULL;                 /* terminal NULL */
+   *n = k;
+   *cpp = (0 == k ? NULL : p->list);
 
-   return (char **) p->list;
+   return 0;
 }
 
 #undef _EXTEND_BUFSZ

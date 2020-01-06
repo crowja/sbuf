@@ -57,6 +57,8 @@ static void
 test_put_1(void)
 {
    struct sbuf *z;
+   unsigned    n;
+   int         rc;
    char      **list;
 
    _printf_test_name("test_put_1", "sbuf_putc, sbuf_strings");
@@ -65,8 +67,9 @@ test_put_1(void)
    sbuf_putc(z, 'Z');
    sbuf_putc(z, 'e');
    sbuf_putc(z, 'b');
+   sbuf_putc(z, '\0');
 
-   list = sbuf_strings(z);
+   rc = sbuf_strings(z, &n, &list);
 
    ASSERT_STRING_EQUALS("Zeb", list[0]);
    ASSERT_EQUALS(NULL, list[1]);
@@ -79,6 +82,8 @@ static void
 test_put_2(void)
 {
    struct sbuf *z;
+   unsigned    n;
+   int         rc;
    char      **list;
 
    _printf_test_name("test_put_2", "sbuf_putc, sbuf_strings");
@@ -91,7 +96,7 @@ test_put_2(void)
    sbuf_putc(z, 'b');
    sbuf_putc(z, '\0');
 
-   list = sbuf_strings(z);
+   rc = sbuf_strings(z, &n, &list);
 
    ASSERT_STRING_EQUALS("S", list[0]);
    ASSERT_STRING_EQUALS("Zeb", list[1]);
@@ -105,11 +110,13 @@ static void
 test_strings_reset_strings(void)
 {
    struct sbuf *z;
+   unsigned    n;
    char      **list;
    char      **cpp;
    char       *test_a[] = { "Mr", "Dewey", "Dog" };
    char       *test_b[] = { "S", "Zeb" };
    unsigned    i;
+   int         rc;
 
    _printf_test_name("test_strings_reset_strings", "sbuf_reset, sbuf_putc, sbuf_strings");
 
@@ -127,8 +134,9 @@ test_strings_reset_strings(void)
    sbuf_putc(z, 'D');
    sbuf_putc(z, 'o');
    sbuf_putc(z, 'g');
+   sbuf_putc(z, '\0');
 
-   list = sbuf_strings(z);
+   rc = sbuf_strings(z, &n, &list);
 #if 1
    cpp = list;
    i = 0;
@@ -153,7 +161,7 @@ test_strings_reset_strings(void)
    sbuf_putc(z, 'b');
    sbuf_putc(z, '\0');
 
-   list = sbuf_strings(z);
+   rc = sbuf_strings(z, &n, &list);
 
 #if 1
    cpp = list;
@@ -180,14 +188,16 @@ static void
 test_empty(void)
 {
    struct sbuf *z;
+   unsigned    n;
    char      **list;
+   int         rc;
 
    _printf_test_name("test_empty", "sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
 
    sbuf_putc(z, '\0');
-   list = sbuf_strings(z);
+   rc = sbuf_strings(z, &n, &list);
 
    ASSERT_STRING_EQUALS("", list[0]);
 
@@ -199,13 +209,15 @@ static void
 test_bare_strings(void)
 {
    struct sbuf *z;
+   unsigned    n;
    char      **list;
+   int         rc;
 
    _printf_test_name("test_bare_strings", "sbuf_strings");
 
    z = sbuf_new();
 
-   list = sbuf_strings(z);
+   rc = sbuf_strings(z, &n, &list);
    ASSERT_EQUALS(NULL, list);
 
    sbuf_free(&z);
@@ -223,6 +235,8 @@ main(void)
    RUN(test_strings_reset_strings);
    RUN(test_empty);
    RUN(test_bare_strings);
+#if 0
+#endif
 
    return TEST_REPORT();
 }
