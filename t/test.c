@@ -224,6 +224,29 @@ test_bare_strings(void)
    ASSERT_EQUALS(NULL, z);
 }
 
+static void
+test_incomplete_strings(void)
+{
+   struct sbuf *z;
+   unsigned    n;
+   char      **list;
+   int         rc;
+
+   _printf_test_name("test_incomplete_strings", "sbuf_strings");
+
+   z = sbuf_new();
+
+   sbuf_putc(z, 'a');
+   sbuf_putc(z, 'b');
+   sbuf_putc(z, 'c');
+   rc = sbuf_strings(z, &n, &list);
+   ASSERT_EQUALS(0, n);
+   ASSERT_EQUALS(NULL, list);
+
+   sbuf_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
 int
 main(void)
 {
@@ -235,6 +258,7 @@ main(void)
    RUN(test_strings_reset_strings);
    RUN(test_empty);
    RUN(test_bare_strings);
+   RUN(test_incomplete_strings);
 #if 0
 #endif
 
