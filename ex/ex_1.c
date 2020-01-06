@@ -7,6 +7,7 @@ main(void)
 {
    struct sbuf *sb = (struct sbuf *) sbuf_new();
    char      **list;
+   unsigned    n;
    char      **cpp;
 
 #if 0
@@ -48,7 +49,7 @@ main(void)
 #endif
 
 #if 1
-   list = sbuf_strings(sb);
+   sbuf_strings(sb, &n, &list);
 #endif
 
 #if 1

@@ -9,6 +9,7 @@ main(void)
    char      **list;
    char      **cpp;
    char        c;
+   unsigned    n;
 
    while (EOF != (c = fgetc(stdin))) {
       if (c == ' ')
@@ -19,7 +20,7 @@ main(void)
 
    sbuf_putc(sb, '\0');
 
-   list = sbuf_strings(sb);
+   sbuf_strings(sb, &n, &list);
 
    cpp = list;
    while (NULL != *cpp) {
