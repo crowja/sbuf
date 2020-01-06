@@ -1,6 +1,6 @@
 /**
  *  @file sbuf.c
- *  @version 0.4.1-dev0
+ *  @version 0.5.0-dev0
  *  @date Sun Jan  5 18:57:10 CST 2020
  *  @copyright 2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
@@ -75,7 +75,7 @@ sbuf_free(struct sbuf **pp)
 const char *
 sbuf_version(void)
 {
-   return "0.4.1-dev0";
+   return "0.5.0-dev0";
 }
 
 int
