@@ -48,20 +48,14 @@ main(void)
    sbuf_putc(sb, '\0');
 #endif
 
-#if 1
    sbuf_strings(sb, &n, &list);
-#endif
-
-#if 1
    cpp = list;
-   while (NULL != *cpp) {                        /* seg faulting here */
+   while (NULL != *cpp) {
       printf("JAC STRING is \"%s\"\n", *cpp);
       cpp++;
    }
-#endif
 
    sbuf_free(&sb);
-
 
    return 0;
 }
