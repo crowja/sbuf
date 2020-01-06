@@ -18,7 +18,7 @@ fake_reader(char ***list)
 
    sbuf_putc(sb, '\0');
 
-   *list = sbuf_strings(sb);
+   sbuf_strings(sb, &n, &list);
 
    /* we're about to lose the pointer to sb, memory leak */
 }
