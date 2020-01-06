@@ -1,7 +1,7 @@
 /**
  *  @file sbuf.c
  *  @version 0.4.1-dev0
- *  @date Sun Jan  5 18:44:30 CST 2020
+ *  @date Sun Jan  5 18:57:10 CST 2020
  *  @copyright 2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
  *  @brief Methods for creating and parsing a buffer of strings.
@@ -160,8 +160,8 @@ sbuf_strings(struct sbuf *p, unsigned *n, char ***cpp)
    while (j < p->bpos) {
       if ((p->buffer)[j] == '\0') {              /* end of string */
          if (k + 2 >= p->lsize) {                /* need to extend p->list? */
-            char      **tp =
-             realloc(p->list, sizeof(char *) * (p->lsize + _EXTEND_LSTSZ));
+            char      **tp;
+            tp = realloc(p->list, sizeof(char *) * (p->lsize + _EXTEND_LSTSZ));
             /* FIXME assuming success */
             p->list = tp;
             p->lsize += _EXTEND_LSTSZ;
