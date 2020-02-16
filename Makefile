@@ -10,6 +10,7 @@ LDFLAGS =
 LDFLAGS_EFENCE = -L/usr/local/lib -lefence $(LDFLAGS)
 #VALGRIND_FLAGS = --verbose --leak-check=full --undef-value-errors=yes --track-origins=yes
 VALGRIND_FLAGS =  --leak-check=summary --undef-value-errors=yes --track-origins=yes
+STAMPER = stamper
 
 INDENT_FLAGS = -TFILE -Tsize_t -Tuint8_t -Tuint16_t -Tuint32_t -Tuint64_t
 
@@ -73,7 +74,7 @@ echeck:
 	  && ( LD_PRELOAD=libefence.so ./t/a.out ); \
 	done 
 
-indent: stamp
+indent:
 	@indent $(INDENT_FLAGS) sbuf.c
 	@indent $(INDENT_FLAGS) sbuf.h
 	@indent $(INDENT_FLAGS) t/test.c
@@ -81,8 +82,8 @@ indent: stamp
 	@indent $(INDENT_FLAGS) ex/ex_2.c
 
 stamp:
-	@stamper.bash sbuf.c
-	@stamper.bash sbuf.h
+	@$(STAMPER) sbuf.c
+	@$(STAMPER) sbuf.h
 
 clean:
 	@/bin/rm -f ./*.o ./*~ ./*.BAK ./*.bak ./core.* ./a.out

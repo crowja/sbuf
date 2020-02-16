@@ -1,7 +1,7 @@
 /**
  *  @file sbuf.c
  *  @version 0.5.2-dev0
- *  @date Sun Jan  5 21:31:55 CST 2020
+ *  @date Sun Feb 16, 2020 04:56:02 PM CST
  *  @copyright 2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
  *  @brief Methods for creating and parsing a buffer of strings.
@@ -15,27 +15,27 @@
 #include <stdio.h>                               /* FIXME when printf() is gone */
 #include "sbuf.h"
 
-#ifdef  _IS_NULL
-#undef  _IS_NULL
+#ifdef  IS_NULL
+#undef  IS_NULL
 #endif
-#define _IS_NULL(p)   ((NULL == (p)) ? (1) : (0))
+#define IS_NULL(p)   ((NULL == (p)) ? (1) : (0))
 
-#ifdef  _FREE
-#undef  _FREE
+#ifdef  FREE
+#undef  FREE
 #endif
-#define _FREE(p)      ((NULL == (p)) ? (0) : (free((p)), (p) = NULL))
+#define FREE(p)      ((NULL == (p)) ? (0) : (free((p)), (p) = NULL))
 
 /* Character buffer size extensions */
-#ifdef  _EXTEND_BUFSZ
-#undef  _EXTEND_BUFSZ
+#ifdef  EXTEND_BUFSIZE
+#undef  EXTEND_BUFSIZE
 #endif
-#define _EXTEND_BUFSZ  1024
+#define EXTEND_BUFSIZE  1024
 
 /* Character pointer array size extensions, > 1 */
-#ifdef  _EXTEND_LSTSZ
-#undef  _EXTEND_LSTSZ
+#ifdef  EXTEND_LSTSIZE
+#undef  EXTEND_LSTSIZE
 #endif
-#define _EXTEND_LSTSZ  1024
+#define EXTEND_LSTSIZE  1024
 
 struct sbuf {
    char      **list;                        /* the array of pointers to strings */
@@ -51,7 +51,7 @@ sbuf_new(void)
    struct sbuf *tp;
 
    tp = (struct sbuf *) malloc(sizeof(struct sbuf));
-   if (_IS_NULL(tp))
+   if (IS_NULL(tp))
       return NULL;
 
    tp->list = NULL;
@@ -66,9 +66,9 @@ sbuf_new(void)
 void
 sbuf_free(struct sbuf **pp)
 {
-   _FREE((*pp)->list);
-   _FREE((*pp)->buffer);
-   _FREE(*pp);
+   FREE((*pp)->list);
+   FREE((*pp)->buffer);
+   FREE(*pp);
    *pp = NULL;
 }
 
@@ -83,11 +83,11 @@ sbuf_putc(struct sbuf *p, int c)
 {
    /* More space for the buffer? */
    if (p->next + 2 > p->bsize) {
-      char       *tp = realloc(p->buffer, sizeof(char) * (p->bsize + _EXTEND_BUFSZ));
-      if (_IS_NULL(tp))
+      char       *tp = realloc(p->buffer, sizeof(char) * (p->bsize + EXTEND_BUFSIZE));
+      if (IS_NULL(tp))
          return EOF;                             /* FIXME */
       p->buffer = tp;
-      p->bsize += _EXTEND_BUFSZ;
+      p->bsize += EXTEND_BUFSIZE;
    }
 
    (p->buffer)[p->next] = c;
@@ -118,19 +118,19 @@ sbuf_strings(struct sbuf *p, unsigned *n, char ***cpp)
 
    if (p->lsize == 0) {
       char      **tp;
-      tp = realloc(p->list, sizeof(char *) * _EXTEND_LSTSZ);
+      tp = realloc(p->list, sizeof(char *) * EXTEND_LSTSIZE);
       p->list = tp;
-      p->lsize = _EXTEND_LSTSZ;
+      p->lsize = EXTEND_LSTSIZE;
    }
 
    while (j < p->next) {
       if ((p->buffer)[j] == '\0') {              /* end of string */
          if (k + 2 >= p->lsize) {                /* need to extend p->list? */
             char      **tp;
-            tp = realloc(p->list, sizeof(char *) * (p->lsize + _EXTEND_LSTSZ));
+            tp = realloc(p->list, sizeof(char *) * (p->lsize + EXTEND_LSTSIZE));
             /* FIXME assuming success */
             p->list = tp;
-            p->lsize += _EXTEND_LSTSZ;
+            p->lsize += EXTEND_LSTSIZE;
          }
 
          (p->list)[k] = p->buffer + i;
@@ -149,7 +149,7 @@ sbuf_strings(struct sbuf *p, unsigned *n, char ***cpp)
    return 0;
 }
 
-#undef _EXTEND_BUFSZ
-#undef _EXTEND_LSTSZ
-#undef _IS_NULL
-#undef _FREE
+#undef EXTEND_BUFSIZE
+#undef EXTEND_LSTSIZE
+#undef IS_NULL
+#undef FREE

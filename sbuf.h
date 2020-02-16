@@ -1,7 +1,7 @@
 /**
  *  @file sbuf.h
  *  @version 0.5.2-dev0
- *  @date Sun Jan  5 21:31:55 CST 2020
+ *  @date Sun Feb 16, 2020 04:56:02 PM CST
  *  @copyright 2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
  *  @brief Methods for creating and parsing a buffer of strings.

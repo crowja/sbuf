@@ -4,35 +4,35 @@
 #include "sbuf.h"
 #include "t/tinytest.h"
 
-#ifdef  _COLOR_CODE
-#undef  _COLOR_CODE
+#ifdef  COLOR_CODE
+#undef  COLOR_CODE
 #endif
-#define _COLOR_CODE       0x1B
+#define COLOR_CODE       0x1B
 
-#ifdef  _COLOR_RED
-#undef  _COLOR_RED
+#ifdef  COLOR_RED
+#undef  COLOR_RED
 #endif
-#define _COLOR_RED        "[1;31m"
+#define COLOR_RED        "[1;31m"
 
-#ifdef  _COLOR_GREEN
-#undef  _COLOR_GREEN
+#ifdef  COLOR_GREEN
+#undef  COLOR_GREEN
 #endif
-#define _COLOR_GREEN      "[1;32m"
+#define COLOR_GREEN      "[1;32m"
 
-#ifdef  _COLOR_YELLOW
-#undef  _COLOR_YELLOW
+#ifdef  COLOR_YELLOW
+#undef  COLOR_YELLOW
 #endif
-#define _COLOR_YELLOW     "[1;33m"
+#define COLOR_YELLOW     "[1;33m"
 
-#ifdef  _COLOR_RESET
-#undef  _COLOR_RESET
+#ifdef  COLOR_RESET
+#undef  COLOR_RESET
 #endif
-#define _COLOR_RESET      "[0m"
+#define COLOR_RESET      "[0m"
 
 static void
-_printf_test_name(char *name, char *info)
+printf_test_name(char *name, char *info)
 {
-   printf("%c%s%s%c%s", _COLOR_CODE, _COLOR_YELLOW, name, _COLOR_CODE, _COLOR_RESET);
+   printf("%c%s%s%c%s", COLOR_CODE, COLOR_YELLOW, name, COLOR_CODE, COLOR_RESET);
 
    if (NULL != info)
       printf(" [%s]\n", info);
@@ -45,7 +45,7 @@ test_constr(void)
 {
    struct sbuf *z;
 
-   _printf_test_name("test_constr", "sbuf_new");
+   printf_test_name("test_constr", "sbuf_new");
 
    z = sbuf_new();
    ASSERT("Constructor test", z);
@@ -61,7 +61,7 @@ test_put_1(void)
    int         rc;
    char      **list;
 
-   _printf_test_name("test_put_1", "sbuf_putc, sbuf_strings");
+   printf_test_name("test_put_1", "sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
    sbuf_putc(z, 'Z');
@@ -86,7 +86,7 @@ test_put_2(void)
    int         rc;
    char      **list;
 
-   _printf_test_name("test_put_2", "sbuf_putc, sbuf_strings");
+   printf_test_name("test_put_2", "sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
    sbuf_putc(z, 'S');
@@ -118,7 +118,7 @@ test_strings_reset_strings(void)
    unsigned    i;
    int         rc;
 
-   _printf_test_name("test_strings_reset_strings", "sbuf_reset, sbuf_putc, sbuf_strings");
+   printf_test_name("test_strings_reset_strings", "sbuf_reset, sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
 
@@ -192,7 +192,7 @@ test_empty(void)
    char      **list;
    int         rc;
 
-   _printf_test_name("test_empty", "sbuf_putc, sbuf_strings");
+   printf_test_name("test_empty", "sbuf_putc, sbuf_strings");
 
    z = sbuf_new();
 
@@ -213,7 +213,7 @@ test_bare_strings(void)
    char      **list;
    int         rc;
 
-   _printf_test_name("test_bare_strings", "sbuf_strings");
+   printf_test_name("test_bare_strings", "sbuf_strings");
 
    z = sbuf_new();
 
@@ -232,7 +232,7 @@ test_incomplete_strings(void)
    char      **list;
    int         rc;
 
-   _printf_test_name("test_incomplete_strings", "sbuf_strings");
+   printf_test_name("test_incomplete_strings", "sbuf_strings");
 
    z = sbuf_new();
 
